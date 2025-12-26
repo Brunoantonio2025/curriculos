@@ -42,18 +42,18 @@ export default function SkillsForm({ skills, onChange }: SkillsFormProps) {
         </p>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
-          className={inputClasses}
+          onKeyDown={handleKeyPress}
+          className={`${inputClasses} w-full`}
           placeholder="Ex: Gestão de Projetos, Python, Liderança..."
         />
         <button
           onClick={addSkill}
-          className="flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-sm hover:shadow-indigo-500/20"
+          className="flex items-center justify-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-sm hover:shadow-indigo-500/20 w-full sm:w-auto"
         >
           <Plus size={20} />
           Adicionar
