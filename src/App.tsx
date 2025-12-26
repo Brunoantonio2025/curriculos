@@ -91,8 +91,8 @@ function App() {
               <button
                 onClick={() => setActiveTab('edit')}
                 className={`px-3 py-1.5 rounded-md text-xs lg:text-sm font-medium transition-all flex items-center gap-2 ${activeTab === 'edit'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
                   }`}
               >
                 <Edit3 size={14} />
@@ -101,8 +101,8 @@ function App() {
               <button
                 onClick={() => setActiveTab('preview')}
                 className={`px-3 py-1.5 rounded-md text-xs lg:text-sm font-medium transition-all flex items-center gap-2 ${activeTab === 'preview'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
                   }`}
               >
                 <Eye size={14} />
@@ -139,8 +139,8 @@ function App() {
                       <button
                         onClick={() => setActiveSection(step.id as any)}
                         className={`w-full lg:text-left px-3 lg:px-4 py-2 lg:py-3 flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-1 lg:gap-3 transition-colors border-b-2 lg:border-b-0 lg:border-l-4 rounded-lg lg:rounded-none ${isActive
-                            ? 'border-indigo-600 text-indigo-700 bg-indigo-50 lg:bg-indigo-50'
-                            : 'border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                          ? 'border-indigo-600 text-indigo-700 bg-indigo-50 lg:bg-indigo-50'
+                          : 'border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                           }`}
                       >
                         <Icon size={18} className={isActive ? 'text-indigo-600' : 'text-slate-400'} />
@@ -234,7 +234,7 @@ function App() {
         ) : (
           <div className="max-w-4xl mx-auto animate-in fade-in zoom-in-95 duration-300 px-0 lg:px-4">
             <div className="bg-white shadow-2xl rounded-sm overflow-hidden min-h-[500px] lg:min-h-[1000px] overflow-x-auto">
-              <div className="min-w-[800px] lg:min-w-0 scale-[0.6] origin-top-left lg:scale-100">
+              <div className="min-w-[900px] lg:min-w-0 scale-[0.35] sm:scale-[0.5] md:scale-[0.7] lg:scale-100 origin-top-left">
                 <CurriculumPreview data={curriculum} />
               </div>
             </div>

@@ -14,7 +14,7 @@ const CurriculumPreview = forwardRef<HTMLDivElement, CurriculumPreviewProps>(({ 
   };
 
   return (
-    <div className="w-full bg-slate-200/50 p-8 flex justify-center print:p-0 print:bg-white">
+    <div className="w-full bg-slate-200/50 p-4 sm:p-8 flex justify-center print:p-0 print:bg-white">
       <div
         ref={ref}
         id="curriculum-preview"
