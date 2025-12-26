@@ -9,20 +9,38 @@ export const downloadPDF = (elementId: string = 'curriculum-preview', fileName: 
   }
 
   const opt = {
-    margin: 0,
+    margin: [10, 10, 10, 10] as [number, number, number, number],
     filename: fileName,
     image: { type: 'jpeg' as const, quality: 0.98 },
     html2canvas: {
       scale: 2,
       useCORS: true,
       letterRendering: true,
-      logging: false
+      logging: false,
+      windowWidth: 794,
+      windowHeight: 1123
     },
-    jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
+    jsPDF: {
+      unit: 'mm' as const,
+      format: 'a4' as const,
+      orientation: 'portrait' as const,
+      compress: true
+    },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
   };
 
-  // No celular, as pessoas preferem o download direto
-  // html2pdf().from(element).set(opt).save() faz exatamente isso
-  html2pdf().set(opt).from(element).save();
+  // Força o download direto sem abrir preview de impressão
+  html2pdf()
+    .set(opt)
+    .from(element)
+    .toPdf()
+    .get('pdf')
+    .then((pdf: any) => {
+      pdf.save(fileName);
+    })
+    .catch((error: any) => {
+      console.error('Erro ao gerar PDF:', error);
+      alert('Erro ao gerar PDF. Por favor, tente novamente.');
+    });
 };
 
