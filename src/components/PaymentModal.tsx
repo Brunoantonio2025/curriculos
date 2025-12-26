@@ -7,9 +7,21 @@ interface PaymentModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess: () => void;
+    userEmail?: string;
 }
 
-export default function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) {
+// Validação de email
+const isValidEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
+// Sanitização de email
+const sanitizeEmail = (email: string): string => {
+    return email.trim().toLowerCase();
+};
+
+export default function PaymentModal({ isOpen, onClose, onSuccess, userEmail = '' }: PaymentModalProps) {
     const [copied, setCopied] = useState(false);
     const [loading, setLoading] = useState(true);
     const [paymentData, setPaymentData] = useState<PaymentResponse | null>(null);
@@ -22,9 +34,22 @@ export default function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModa
         if (isOpen) {
             setLoading(true);
             setError('');
+
+            // Validar e sanitizar email
+            let emailToUse = userEmail || 'usuario@exemplo.com';
+
+            if (userEmail && !isValidEmail(userEmail)) {
+                setError('Email inválido. Por favor, verifique seus dados pessoais.');
+                setLoading(false);
+                return;
+            }
+
+            if (userEmail) {
+                emailToUse = sanitizeEmail(userEmail);
+            }
+
             // Inicia criação do pagamento
-            // Em uma aplicação real, você pegaria o email do usuário do formulário de Dados Pessoais
-            createPixPayment('usuario@exemplo.com')
+            createPixPayment(emailToUse)
                 .then(data => {
                     setPaymentData(data);
                     setLoading(false);

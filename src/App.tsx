@@ -261,6 +261,7 @@ function App() {
         isOpen={isPaymentModalOpen}
         onClose={() => setIsPaymentModalOpen(false)}
         onSuccess={handlePaymentSuccess}
+        userEmail={curriculum.personalInfo.email}
       />
     </div>
   );
