@@ -34,7 +34,7 @@
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;
       img-src 'self' data: https:;
-      connect-src 'self' https://api.mercadopago.com /.netlify/functions/;
+      connect-src 'self' https://api.mercadopago.com https://curriculo-pdf.netlify.app/.netlify/functions/;
       frame-ancestors 'none';
       base-uri 'self';
       form-action 'self';
