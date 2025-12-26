@@ -57,6 +57,19 @@ export default function PersonalInfoForm({ data, onChange }: PersonalInfoFormPro
 
         <div className="md:col-span-2">
           <label className={labelClasses}>
+            Endereço Completo
+          </label>
+          <input
+            type="text"
+            value={data.endereco || ''}
+            onChange={(e) => handleChange('endereco', e.target.value)}
+            className={inputClasses}
+            placeholder="Ex: Rua das Flores, 123 - Bairro"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className={labelClasses}>
             Cidade e Estado <span className="text-red-500">*</span>
           </label>
           <input

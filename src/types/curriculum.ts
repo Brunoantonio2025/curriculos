@@ -5,6 +5,7 @@ export interface PersonalInfo {
   cidade: string;
   linkedin?: string;
   portfolio?: string;
+  endereco?: string;
   objetivo?: string;
 }
 

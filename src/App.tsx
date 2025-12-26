@@ -33,6 +33,7 @@ function App() {
       email: '',
       telefone: '',
       cidade: '',
+      endereco: '',
       linkedin: '',
       portfolio: '',
       objetivo: ''

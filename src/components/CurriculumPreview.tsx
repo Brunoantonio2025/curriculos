@@ -38,6 +38,12 @@ const CurriculumPreview = forwardRef<HTMLDivElement, CurriculumPreviewProps>(({ 
                 <span>{data.personalInfo.telefone}</span>
               </div>
             )}
+            {data.personalInfo.endereco && (
+              <div className="flex items-center gap-2">
+                <MapPin size={14} className="text-slate-400" />
+                <span>{data.personalInfo.endereco}</span>
+              </div>
+            )}
             {data.personalInfo.cidade && (
               <div className="flex items-center gap-2">
                 <MapPin size={14} className="text-slate-400" />
