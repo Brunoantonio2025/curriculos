@@ -4,9 +4,10 @@ import { forwardRef } from 'react';
 
 interface CurriculumPreviewProps {
   data: Curriculum;
+  id?: string;
 }
 
-const CurriculumPreview = forwardRef<HTMLDivElement, CurriculumPreviewProps>(({ data }, ref) => {
+const CurriculumPreview = forwardRef<HTMLDivElement, CurriculumPreviewProps>(({ data, id = "curriculum-preview" }, ref) => {
   const formatDate = (dateStr: string) => {
     if (!dateStr) return '';
     const [year, month] = dateStr.split('-');
@@ -17,7 +18,7 @@ const CurriculumPreview = forwardRef<HTMLDivElement, CurriculumPreviewProps>(({ 
     <div className="w-full bg-slate-200/50 p-4 sm:p-8 flex justify-center print:p-0 print:bg-white">
       <div
         ref={ref}
-        id="curriculum-preview"
+        id={id}
         className="w-full max-w-[21cm] bg-white shadow-2xl min-h-[29.7cm] p-[2cm] mx-auto text-slate-800 print:shadow-none print:m-0 print:w-full print:max-w-none print:min-h-0"
       >
         <header className="border-b-2 border-slate-900 pb-8 mb-8">

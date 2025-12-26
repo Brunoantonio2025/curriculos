@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { useReactToPrint } from 'react-to-print';
 import {
   FileText,
   Download,
@@ -18,6 +17,7 @@ import SkillsForm from './components/SkillsForm';
 import CurriculumPreview from './components/CurriculumPreview';
 import PaymentModal from './components/PaymentModal';
 import { Curriculum } from './types/curriculum';
+import { downloadPDF } from './utils/pdfExport';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
@@ -43,17 +43,17 @@ function App() {
     skills: []
   });
 
-  const handlePrint = useReactToPrint({
-    contentRef: componentRef,
-    documentTitle: curriculum.personalInfo.nome
-      ? `Curriculo_${curriculum.personalInfo.nome.replace(/\s+/g, '_')}`
-      : 'Curriculo',
-    onAfterPrint: () => alert('PDF exportado com sucesso!'),
-  });
+  const handleExport = () => {
+    const fileName = curriculum.personalInfo.nome
+      ? `Curriculo_${curriculum.personalInfo.nome.replace(/\s+/g, '_')}.pdf`
+      : 'Curriculo.pdf';
+
+    downloadPDF('curriculum-export', fileName);
+  };
 
   const handleExportClick = () => {
     if (isPaid) {
-      handlePrint();
+      handleExport();
     } else {
       setIsPaymentModalOpen(true);
     }
@@ -62,10 +62,11 @@ function App() {
   const handlePaymentSuccess = () => {
     setIsPaid(true);
     setIsPaymentModalOpen(false);
-    // Inicia o download automaticamente após confirmar com pequeno delay para garantir atualização de estado
+    // Inicia o download automaticamente após confirmar
+    // Pequeno delay para garantir que o modal fechou e o download seja disparado corretamente no navegador
     setTimeout(() => {
-      handlePrint();
-    }, 100);
+      handleExport();
+    }, 500);
   };
 
   const steps = [
@@ -253,7 +254,7 @@ function App() {
 
       {/* Hidden layout for printing with explicit position fixed to ensure it is rendered and capturable */}
       <div style={{ position: 'fixed', left: '-10000px', top: 0 }}>
-        <CurriculumPreview ref={componentRef} data={curriculum} />
+        <CurriculumPreview id="curriculum-export" ref={componentRef} data={curriculum} />
       </div>
 
       <PaymentModal

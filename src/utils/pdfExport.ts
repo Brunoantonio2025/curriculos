@@ -1,62 +1,28 @@
-export const downloadPDF = (fileName: string = 'curriculo.pdf') => {
-  const printWindow = window.open('', '_blank');
+import html2pdf from 'html2pdf.js';
 
-  if (!printWindow) {
-    alert('Por favor, permita pop-ups para baixar o PDF');
+export const downloadPDF = (elementId: string = 'curriculum-preview', fileName: string = 'curriculo.pdf') => {
+  const element = document.getElementById(elementId);
+
+  if (!element) {
+    alert('Erro ao encontrar o currículo para exportação.');
     return;
   }
 
-  const previewElement = document.getElementById('curriculum-preview');
+  const opt = {
+    margin: 0,
+    filename: fileName,
+    image: { type: 'jpeg' as const, quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      letterRendering: true,
+      logging: false
+    },
+    jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
+  };
 
-  if (!previewElement) {
-    alert('Erro ao gerar PDF');
-    return;
-  }
-
-  const styles = Array.from(document.styleSheets)
-    .map(styleSheet => {
-      try {
-        return Array.from(styleSheet.cssRules)
-          .map(rule => rule.cssText)
-          .join('\n');
-      } catch (e) {
-        return '';
-      }
-    })
-    .join('\n');
-
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>${fileName}</title>
-        <style>
-          ${styles}
-
-          @media print {
-            body {
-              margin: 0;
-              padding: 20px;
-              background: white;
-            }
-
-            @page {
-              size: A4;
-              margin: 15mm;
-            }
-          }
-        </style>
-      </head>
-      <body>
-        ${previewElement.outerHTML}
-      </body>
-    </html>
-  `);
-
-  printWindow.document.close();
-
-  setTimeout(() => {
-    printWindow.focus();
-    printWindow.print();
-  }, 250);
+  // No celular, as pessoas preferem o download direto
+  // html2pdf().from(element).set(opt).save() faz exatamente isso
+  html2pdf().set(opt).from(element).save();
 };
+
